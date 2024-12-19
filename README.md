@@ -11,3 +11,20 @@
 학습에 사용하는 loss function은 MSELoss를, optimizer는 adam을 이용했습니다.
 
 시각화 : 실제 주가와 예측된 주가를 비교하여 그래프로 출력합니다.
+
+주가 데이터는 다음과 같은 변수로 관리됩니다.
+ticker = 'AAPL'
+start_date = '2020-01-01'
+end_date = '2023-01-01'
+sequence_length = 10
+
+ticker는 주식의 이름, start_date는 학습시키고자 하는 데이터의 첫 날짜, end_date는 마지막 날짜입니다. sequence_length는 며칠 동안의 종가를 주고 그 다음날 종가를 예측할지를 결정하는 변수입니다.
+
+LSTM 모델과 관련된 변수는 다음과 같습니다.
+input_size = sequence_length # 직전 n일간 주가
+hidden_size = 64
+num_layers = 2
+output_size = 1  # 종가 예측
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+input_size는 입력받을 직전 n일간 주가의 갯수와 동일합니다. output_size는 출력할 종가의 갯수이므로 1입니다. gpu가 사용가능하다면 gpu를, 아니라면 cpu에서 연산을 합니다.
